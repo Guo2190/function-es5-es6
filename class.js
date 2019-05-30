@@ -1,14 +1,11 @@
 class T {
-    x = 'a'
-    y = 'b'
+    static x = 'a'
+    static y = 'b'
     static hh = 'qwer'
     constructor(x, y) {
-        
     }
     async toString() {
-        let a = await this.x + this.y
-        console.log(a)
-        console.log(T.hh)
+        let a = await Promise.resolve(T.x + T.y)
     }
     printName = (name = 'there') => {
         this.print(`Hello ${name}`);
@@ -17,6 +14,13 @@ class T {
         console.log(text);
       }
 }
-let a = new T()
-console.log(T.print())
-console.log(a.toString())
+class subT extends T {
+    constructor() {
+        super()
+        console.log(super.toString())
+
+    }
+}
+
+console.log('subT.__proto__-->', subT.__proto__)
+console.log('subT.prototype.__proto__-->', subT.prototype.__proto__)
