@@ -1,45 +1,25 @@
-function throttle(func, wait) {
-    let time, ctx, now, previous = 0, remaining, args;
-    return () => {
-        ctx = this
-        args = arguments
-        now = +new Date()
-        remaining  = wait - (now - previous) 
-        if (remaining < 0) {
-            if(time) {
-                clearTimeout(time)
-            }
-            func.apply(ctx, args)
+function throtte(func, wait) {
+    let time = null
+    let previous = 0
+    return function () {
+        let args = arguments
+        let now = +new Date()
+        if (now - previous > wait) {
+            func.apply(this, args)
             previous = now
-        } else if(!time) {
-            time = setTimeout(() => {
-                time = null
-                func.apply(ctx, args)
-                previous = +new Date()
-            })
         }
     }
 }
-function debunce (func, wait, immediate) {
-    let args, time, ctx;
-    return function(){
-        ctx = this
-        args = arguments
-        if(time) {
-            clearTimeout(time)
-        }
-        if (immediate) {
-            let callnow = !time
-            time = setTimeout(() => {
+function throtte(func, wait) {
+    let time = null
+    return function () {
+        let args = arguments
+        if(!time) {
+            time = setTimeout(()=>{
                 time = null
-            }, wait)
-            if(callnow) func.apply(ctx, args)
-        } else {
-            time = setTimeout(() => {
-                func.apply(ctx, args)
+                func.apply(this, args)
             }, wait)
         }
-        
     }
 }
 var count = 1;
@@ -47,4 +27,4 @@ var container = document.getElementById('container');
 function getUserAction() {
     container.innerHTML = count++;
 };
-window.onmousemove = debunce(getUserAction, 1000, true)
+window.onmousemove = throtte(getUserAction, 2000, true)
