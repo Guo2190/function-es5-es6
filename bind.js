@@ -9,7 +9,7 @@ function bind1 (context) {
     let args = [].slice.call(arguments, 1)
     let FNop = function(){}
     let Fun = function () {
-        return self.apply(this instanceof Fun ? this : context, args.concat([].slice.call(arguments)))
+        return self.apply(this instanceof FNop ? this : context, args.concat([].slice.call(arguments)))
     }
     console.log(this)
     if(self.prototype) {
@@ -46,3 +46,24 @@ function bind1 (context) {
  console.log(obj.friend);
  // shopping
  // kevin
+
+ // 特殊案例调用形式
+ // 对象的方法简写模式  方法没有prototype  
+ // 普通写法是有prototype的
+ var o = {
+    val: 123,
+    getValue() {
+      return this.val;
+    },
+    f:function() {
+
+    }
+  };
+  var b = {
+    val: 456,
+  };
+  var getValue = o.getValue;
+  var myBind = getValue.bind1(b);
+  console.log(myBind());
+  console.log('o.getValue',o.getValue.prototype)
+  console.log('o.f',o.f.prototype)
