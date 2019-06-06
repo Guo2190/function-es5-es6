@@ -17,17 +17,18 @@ function call1(obj) {
 Function.prototype.call1 = call1
 let obj = {a: 1}
 function a(b) {
+    console.log(this)
     console.log(this.a + b)
 }
-a.call1(obj, 11)
+//a.call1(obj, 11)
 
-function call2(obj, ...rest){
-    let ctx = obj || window
+function call2(ctx, ...rest){
+    ctx || (ctx = window)
     let fn = Symbol('fn')
     ctx[fn] = this
-    ctx[fn](...rest);
+    let res = ctx[fn](...rest);
     delete ctx[fn]
+    return res
+    
 }
 Function.prototype.call2 = call2
-
-console.log(a.call2(obj, 22))
