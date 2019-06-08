@@ -153,19 +153,37 @@ Array.prototype.quickSort = function () {
 // console.time('sort')
 // console.log([-1,34,1,0,2,212,21,1,12,12,12,12,1212,12,123131231,321,0].sort((a,b) => a-b))
 // console.timeEnd('sort')
-Array.prototype.quickSorts = function () {
-    let len = this.length
-    if(len <= 1) return this
-    let left = []
-    let right = []
-    let v = this[0]
-    for(let i = 1; i < len; i ++) {
-        v >= this[i] && left.push(this[i])
-        v < this[i] && right.push(this[i])
-    }
-    return left.quickSorts().concat(v, right.quickSorts())
-}
 // [0].quickSorts().concat(1, [2121,31212].quickSorts())
 // [0].concat(1, [].concat(2121, [31212].quickSorts()))
 // [0].concat(1, [].concat(2121, [31212])
-console.log([1,2121,31212, 0].quickSorts())
+//console.log([1,2121,31212, 0].quickSorts())
+
+/**
+ * RADIX SORT 基数排序 是一种非比较型整数排序算法，其原理是将整数按位数切割成不同的数字，然后按每个位数分别比较。
+ */
+
+Array.prototype.radixSort = function() {
+    let arr = this.slice(0)
+    const max = Math.max(...arr)
+    let digit = `${max}`.length
+    let start = 10
+    let dev = 1
+    let buckets = []
+    while(digit > 0) {
+      start *= 10
+      dev *= 10
+      for(let i = 0; i < arr.length; i++) {
+        const index = parseInt(arr[i] % start / dev)
+        !buckets[index] && (buckets[index] = [])
+        buckets[index].push(arr[i])
+      }
+      arr = []
+      for(let i = 0; i < buckets.length; i++) {
+        buckets[i] && (arr = arr.concat(buckets[i]))
+      }
+      buckets = []
+      digit --
+    }
+    return arr
+  }
+ console.log('radixSort', [1,2,33333,1212,199, 777,3121,12].radixSort())
