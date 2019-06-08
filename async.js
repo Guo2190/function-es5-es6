@@ -1,18 +1,20 @@
 
-function spawn(genf) {
-    return new Promise((rs, rj) => {
-        let gen = genf()
-        function step(g) {
-            let next 
+function spawn(g) {
+    let gen = g()
+    return new Promise((resolve, reject) => {
+        function step(genf) {
+            let next
             try {
-                next = g()
-            } catch (e) {
-                rj(e)
+                next = genf()
+            } catch (error) {
+                return reject(error)
             }
-            if (next.done) return rs(next.value)
-            Promise.resolve(next.value).then(v => {
-                step(() => gen.next(v))
-            }, e => {
+            if(next.done) {
+                return resolve(next.value)
+            }
+            Promise.resolve(next.value).then(r=>{
+                step(()=> gen.next(r))
+            }, e=>{
                 step(() => gen.throw(e))
             })
         }
@@ -20,40 +22,23 @@ function spawn(genf) {
     })
 }
 function fn(args) {
-    return spawns(args)
+    return spawn(args)
 }
 function* helloWorldGenerator() {
     let a = yield 'hello';
-    let b = yield 'world'; console.log(b);
-    
-
+    console.log(a)
+    let b = yield 'world'; 
+    throw Error('出错拉')
+    console.log(b);
     let c = yield 'I am tired'
+    console.log(c)
     return 'ending';
   }
   let j = helloWorldGenerator()
 
 fn(helloWorldGenerator).then( v => console.log(v))
 
-function spawns(genf) {
-    let gen = genf() 
-    return new Promise((resolve, reject) => {
-        function step(f) {
-            let x 
-            try {
-                x = f()
-            } catch (e) {
-               reject(e)
-            }
-            if(x.done) return resolve(x.value)
-            Promise.resolve(x.value).then(r => {
-                step(() => gen.next(r))
-            }, e => {
-                step(() => gen.throw(e))
-            })
-        } 
-        step(() => gen.next(undefined))
-    })
-}
+
 
 // 第一步 先返回一个new Promise 来处理 resolve or reject 情况
 // 第二步 写一个自执行函数 step(() => gen.next(underfine))

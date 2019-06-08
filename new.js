@@ -21,3 +21,4 @@ console.log(P.prototype)
 // 4 开始执行函数内部的代码
 // notice 如果构造函数内部有return语句，而且return后面跟着一个对象，
 // new命令会返回return语句指定的对象；否则，就会不管return语句，返回this对象。
+
