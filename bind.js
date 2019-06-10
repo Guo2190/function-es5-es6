@@ -15,7 +15,7 @@ function bind1 (context) {
     if(self.prototype) {
         FNop.prototype = self.prototype
     }
-    Fun.prototype = new FNop()
+    Fun.prototype = new FNop() // 1{} 2 {}.__proto__  3{}赋值给构造函数的this 4执行函数内部的代码
     return Fun
 }
 
@@ -37,7 +37,8 @@ function bind1 (context) {
  bar.prototype.friend = 'kevin';
  
  var bindFoo = bar.bind1(foo, 'daisy');
- 
+ bindFoo.prototype.hh = 'hh'
+ console.log('hh--->', bar.prototype)
  var obj =   new bindFoo('18');
  // undefined
  // daisy
@@ -50,20 +51,20 @@ function bind1 (context) {
  // 特殊案例调用形式
  // 对象的方法简写模式  方法没有prototype  
  // 普通写法是有prototype的
- var o = {
-    val: 123,
-    getValue() {
-      return this.val;
-    },
-    f:function() {
+//  var o = {
+//     val: 123,
+//     getValue() {
+//       return this.val;
+//     },
+//     f:function() {
 
-    }
-  };
-  var b = {
-    val: 456,
-  };
-  var getValue = o.getValue;
-  var myBind = getValue.bind1(b);
-  console.log(myBind());
-  console.log('o.getValue',o.getValue.prototype)
-  console.log('o.f',o.f.prototype)
+//     }
+//   };
+//   var b = {
+//     val: 456,
+//   };
+//   var getValue = o.getValue;
+//   var myBind = getValue.bind1(b);
+//   console.log(myBind());
+//   console.log('o.getValue',o.getValue.prototype)
+//   console.log('o.f',o.f.prototype)
