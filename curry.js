@@ -43,9 +43,16 @@ let currys = fn =>
             args.length === fn.length ?
                 fn(...args)
                 : arg => judge(...args, arg)
+
+
+let curryss = (fn) =>
+        judge = (...args) =>
+        args.length === fn.length ?
+            fn(...args)
+            : (arg) => judge(...args, arg)
 let c = currys(add)
 let adds = function(a, b, c, d) {
     return a+b+c+d
 }
-let f = currys(adds)
-console.log('f-->',f(1,2,3)(1))
+let f = curryss(adds)
+console.log('f-->',f(1,3)(121)(1))

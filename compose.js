@@ -2,15 +2,22 @@
  * 函数组合
  */
 let a = function (x) {
+    console.log('a')
     return x / 2
 }
 let b = function(b) {
+    console.log('b')
+
     return b + 13
 }
 let c = function(h) {
+    console.log('c')
+
     return h+10
 }
 let d = function(h) {
+    console.log('d')
+
     return h+10
 }
 
@@ -45,7 +52,7 @@ console.log(k(22))
         }, arg)
     }
  }
- const composesss = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)));
+ const composesss = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)))
 a(b())
  a(b(c(11)))
  let h = composes(a, b)
@@ -53,5 +60,5 @@ a(b())
 
  let es = Es6Compose(a, b, c)
  console.log('es6compose--->', es(10))
- let ess = composesss(a,b,c,d)
- console.log('composesss-->', ess(10))
+  let ess = composesss(a,b,c,d)
+  console.log('composesss-->', ess(10))
