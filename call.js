@@ -31,4 +31,14 @@ function call2(ctx, ...rest){
     return res
     
 }
+
+function apply1(ctx, rest){
+    ctx || (ctx = window)
+    let fn = Symbol('fn')
+    ctx[fn] = this
+    let res = ctx[fn](...rest);
+    delete ctx[fn]
+    return res
+    
+}
 Function.prototype.call2 = call2

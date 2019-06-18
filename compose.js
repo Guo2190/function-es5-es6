@@ -51,10 +51,9 @@ console.log(k(22))
             return f(compose)
         }, arg)
     }
- }
+ }                  // a,b,c,d
  const composesss = (...fns) => fns.reduce((f, g) => (...args) => f(g(...args)))
-a(b())
- a(b(c(11)))
+ //console.log('oo-->',ooo(10))
  let h = composes(a, b)
  console.log('composes-->',h(90))
 
@@ -62,3 +61,12 @@ a(b())
  console.log('es6compose--->', es(10))
   let ess = composesss(a,b,c,d)
   console.log('composesss-->', ess(10))
+let l = function(...fn) {
+    return fn.reduce(function(f,g) {
+        return function hhh(...args) {
+            return f(g(...args))
+        }
+    })
+}
+let esss = l(a,b,c,d)
+//console.log('esss->', esss(111))

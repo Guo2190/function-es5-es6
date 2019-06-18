@@ -88,6 +88,20 @@ function inser() {
     }
     return this
 }
+function inser() {
+    let len = this.length
+    let i, j, key;
+    for(i = 1; i < len; i++) {
+        key = this[i]
+        j = i - 1
+        while(j >= 0 && key < this[j]) {
+            this[j+1] = this[j]
+            j--
+        }
+        this[j+1] = key
+    }
+    return this
+}
 //console.log('this-->',b.inser())
 function inser1(arr) {
     let len = arr.length
