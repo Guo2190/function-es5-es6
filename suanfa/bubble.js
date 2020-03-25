@@ -2,18 +2,17 @@
  * BUB (bubble冒泡算法) 基于比较
  */
 let a = [-1,34,1,0,2]
-function bub(arr) {
-    let len = arr.length
-    for(let i = 0; i < len; i++) {
-        for(let j = 0; j < len - i - 1; j++) {
-            if (arr[j] > arr[j+1]) {
-               [arr[j], arr[j+1]]= [arr[j+1], arr[j]]
+
+function bub_sort() {
+    for(let i = 0; i < this.length; i++) {
+        for(let j = 0; j < this.length - i - 1; j++) {
+            if(this[j] > this[j+1]) {
+                [this[j], this[j+1]] = [this[j+1], this[j]]
             }
         }
     }
-    return arr
+    return this
 }
-
 // 优化 加个flag;  如果当轮比较 为false 直接跳过本次循环
 // function bub(arr) {
 //     let len = arr.length
