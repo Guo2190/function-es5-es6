@@ -1,28 +1,34 @@
-var threeSum = function(nums) {
-    const arr = []
-    let l = 0
-    let r = nums.length - 1
-    while (l < r) {
-        let add = nums[l] + nums[r]
-        let index = nums.findIndex((e, i) => {
-            if (i != l && i != r) {
-                return (add - e) === 0
+var twoSum = function(nums, target) {
+    const arr = nums.sort((a, b) => a - b)
+    const res = []
+    let left = 0
+    let right = arr.length - 1
+    while (left < right) {
+        if (arr[left] + arr[right] === target) {
+            res.push([arr[left], arr[right]])
+            while (arr[left] === arr[left + 1]) {
+                left++
             }
-        })
-        if (index !== -1) {
-            console.log(l, r, index)
-            arr.push([nums[l], nums[r], nums[index]])
-                ++l
-                --r
+            left++
+            while (arr[right] === arr[right - 1]) {
+                right--
+            }
+            right--
+
+        } else if (arr[left] + arr[right] > target) {
+            while (arr[right] === arr[right - 1]) {
+                right--
+            }
+            right--
+
         } else {
-            if (nums[l] > nums[r]) {
-                --r
-            } else {
-                ++l
+            while (arr[left] === arr[left + 1]) {
+                left++
             }
+            left++
         }
     }
-    return arr
+    return res
 };
 
-console.log(threeSum([-1, 0, 1, 2, -1, -4]))
+console.log(twoSum([1, 1, 1, 2, 2, 3, 3], 4))
