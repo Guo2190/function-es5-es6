@@ -1,29 +1,30 @@
 var twoSum = function(nums, target) {
-    const obj = {}
-    for (let index = 0; index < nums.length; index++) {
-        const element = nums[index];
-        if (obj[target - element] != void 0) {
-            return [obj[target - element], index]
+    let obj = {}
+    for (let i = 0; i < nums.length; i++) {
+        if (obj[target - nums[i]] === undefined) {
+            obj[nums[i]] = i
+            console.log(obj)
+        } else {
+            console.log('hha')
+            return [i, obj[target - nums[i]]]
         }
-        obj[element] = index
-
     }
 };
 const twoSum2 = function(numbers, target) {
-    var i = 0,
-        j = numbers.length - 1;
-    while (i < j) {
+    var left = 0,
+        right = numbers.length - 1;
+    while (left < right) {
         var temp = target - numbers[i];
-        if (numbers[j] > temp) {
-            j--;
+        if (numbers[right] > temp) {
+            right--;
         } else if (numbers[j] < temp) {
-            i++;
+            left++;
         } else {
-            return [i + 1, j + 1];
+            return [left + 1, right + 1];
         }
     }
     return []
 };
 
 
-console.log(twoSum2([4, 2, 3, 1], 7))
+console.log(twoSum([4, 2, 3, 1], 7))
