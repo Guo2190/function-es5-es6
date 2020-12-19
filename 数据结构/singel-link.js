@@ -97,6 +97,22 @@ class LinkedList {
         head.next = node
         this.length += 1
     }
+    insert(prev, item) {
+        let node = new Node(item)
+        if (this.length !== 0) {
+            let head = this.head
+            let ins = ''
+            while (head.next !== null) {
+                head = head.next
+                if (head.element === prev) {
+                    let next = head.next
+                    node.next = next
+                    head.next = node
+                }
+            }
+        }
+
+    }
     display() {
         let node = this.head
         while (node.next !== null) {
@@ -110,8 +126,9 @@ class LinkedList {
 
 let list = new LinkedList()
 console.log(list.append('Guo'))
-console.log(list.append('Xiao'))
 console.log(list.append('Feng'))
+console.log(list.insert('Xiao'))
+
 
 console.log(list.size())
 console.log(list.display())
