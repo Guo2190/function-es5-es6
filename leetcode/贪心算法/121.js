@@ -18,30 +18,50 @@
 //     let dpo = 0
 //     let dp1 = prices[0]
 //     for(let i = 1; i< prices.length; i++){
-//         dpo = Math.max(dpo, prices[i] - dp1)
+//         dpo = Math.max(dpo, prices[i] - dp1)  
 //         dp1 = Math.min(dp1, prices[i])
 //     }
 //     return dpo
 // };
-
-// 最大子序列和
+/**
+ *  max_profit = max{price[j] - price[i]} 0<=i <j <=n -1
+ *  minPrice[i] = min(minPrice[i-1], )
+ */
+// 动态规划方法
 var maxProfit = function(prices) {
-    if(prices.length<2){
+    if(prices.length<=1){
         return 0
     }
-   let subArr = new Array(prices.length-1)
-   for(let i = 1; i< prices.length; i++){
-    subArr[i-1] = prices[i] - prices[i-1] // 记录所有买卖的盈亏 然后在计算里面最大子序列
-}
-        return Math.max(0, maxSub(subArr))
-};
-let maxSub = function(arr){
-   let f = new Array(arr.length-1)
-   f[0]=arr[0]
-    for(let i =1; i< arr.length; i++){
-       f[i] = Math.max(f[i-1]+arr[i], arr[i])
+    let minPrice = new Array(prices.length-1)
+    let maxProt  = new Array(prices.length-1)
+    minPrice[0]=prices[0]
+    maxProt[0] =0
+    for(let i = 1; i<prices.length; i++){
+        minPrice[i] = Math.min(minPrice[i-1], prices[i])
+        maxProt[i] = Math.max(maxProt[i-1], prices[i] - minPrice[i-1])
     }
-    return f.sort((a,b)=> b-a)[0]
+    return maxProt[maxProt.length-1]
 }
-console.log(maxProfit( [7,1,5,3,6,4]))
+ console.log(maxProfit( [1,2]))
+
+// 最大子序列和
+// var maxProfit = function(prices) {
+//     if(prices.length<2){
+//         return 0
+//     }
+//    let subArr = new Array(prices.length-1)
+//    for(let i = 1; i< prices.length; i++){
+//     subArr[i-1] = prices[i] - prices[i-1] // 记录所有买卖的盈亏 然后在计算里面最大子序列
+// }
+//         return Math.max(0, maxSub(subArr))
+// };
+// let maxSub = function(arr){
+//    let f = new Array(arr.length-1)
+//    f[0]=arr[0]
+//     for(let i =1; i< arr.length; i++){
+//        f[i] = Math.max(f[i-1]+arr[i], arr[i])
+//     }
+//     return f.sort((a,b)=> b-a)[0]
+// }
+// console.log(maxProfit( [7,1,5,3,6,4]))
 //console.log(maxSub( [ -6, 4, -2, 3, -2 ]))
