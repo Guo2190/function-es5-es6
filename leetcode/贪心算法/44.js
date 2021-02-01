@@ -36,4 +36,28 @@ var isMatch = function(s, p) {
     return i===j
 };
 
-console.log(isMatch('aaaaaa','a'))
+var isMatchs = function(s, p) {
+    if (p === "*" || s === p) return true;
+    let dp = Array.from(Array(s.length + 1), _ => Array(p.length + 1).fill(false));
+    dp[0][0] = true;
+    for (let i  = 1; i <= p.length; i++) {
+        if (!dp[0][i - 1]) break;
+        if (p[i - 1] === '*') dp[0][i] = true;
+    }
+    for (let i = 1; i <= s.length; i++) {
+        for (let j = 1; j <= p.length; j++) {
+            if (s[i - 1] === p[j - 1] || p[j - 1] === "?") {
+                dp[i][j] = dp[i - 1][j - 1];
+            } else if (p[j - 1] === "*") {
+                dp[i][j] = dp[i - 1][j] || dp[i][j - 1];
+
+            }
+            console.log(dp)
+
+        }
+    }
+    return dp;
+};
+
+
+console.log(isMatchs('abcbeb','a*b?b'))
