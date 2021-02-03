@@ -37,11 +37,21 @@ var isMatch = function(s, p) {
 };
 
 var isMatchs = function(s, p) {
-    if (p === "*" || s === p) return true;
+   // if (p === "*" || s === p) return true;
     let dp = Array.from(Array(s.length+1),_=>Array(p.length+1).fill(false))
-   
+    dp[0][0] = true
+    for(let i = 1; i<=s.length; i++){
+        for(let j = 1; j<=p.length;j++){
+            if(s[i-1]===p[j-1]|| p[j-1] === '?'){
+                dp[i][j] = dp[i-1][j-1]
+             }
+              else if(p[j-1] === '*'){
+                 dp[i][j] = dp[i-1][j]|| dp[i][j-1]
+             }
+        }
+    }
     return dp;
 };
 
 
-console.log(isMatchs('abcbeb','a*b?b'))
+console.log(isMatchs('acdcb','a*b'))
