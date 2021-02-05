@@ -52,6 +52,11 @@ var isMatchs = function(s, p) {
     if (p === "*" || s === p) return true;
     let dp = Array.from(Array(s.length+1),_=>Array(p.length+1).fill(false))
     dp[0][0] = true
+   for(let j = 1; j<=p.length; j++){ // 当s为空 p为星号
+       if(p[j-1] === '*'){
+        dp[0][j]=dp[0][j-1]
+       }
+   }
     for(let i = 1; i<=s.length; i++){
         for(let j = 1; j<=p.length;j++){
             if(s[i-1]===p[j-1]|| p[j-1] === '?'){
@@ -66,4 +71,4 @@ var isMatchs = function(s, p) {
 };
 
 
-console.log(isMatchs('guoxiaofeng','g*g'))
+console.log(isMatchs('aa',"a"))
