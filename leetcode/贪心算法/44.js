@@ -35,9 +35,21 @@ var isMatch = function(s, p) {
     }
     return i===j
 };
-
+/**
+ * 
+ * @param {*} s 
+ * @param {*} p
+ *  动态规范 考察点
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ *  
+ */
 var isMatchs = function(s, p) {
-   // if (p === "*" || s === p) return true;
+    if (p === "*" || s === p) return true;
     let dp = Array.from(Array(s.length+1),_=>Array(p.length+1).fill(false))
     dp[0][0] = true
     for(let i = 1; i<=s.length; i++){
@@ -50,8 +62,8 @@ var isMatchs = function(s, p) {
              }
         }
     }
-    return dp;
+    return dp[s.length][p.length]
 };
 
 
-console.log(isMatchs('acdcb','a*b'))
+console.log(isMatchs('guoxiaofeng','g*g'))
