@@ -23,6 +23,8 @@
  */
 var jump = function(nums) {
   let len = nums.length
- 
+  
+  return step
+
 };
 console.log(jump([1,2]))
