@@ -22,9 +22,34 @@
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 var jump = function(nums) {
-  let len = nums.length
-  
-  return step
-
+    let steps = 0
+    let end = 0
+    let maxPos = 0
+    for(let i = 0; i<nums.length-1; i++){
+      maxPos = Math.max(maxPos, nums[i]+i)
+      if(i === end){
+        end = maxPos
+        ++steps 
+      }
+    }
+    return steps
 };
-console.log(jump([1,2]))
+console.log(jump([2,3,1,1,6]))
+
+// 反向查询方法
+
+var jumps = function(nums){
+  let pos = nums.length-1
+  let step = 0
+  while(pos>0){
+    for(let i =0 ; i<pos; i++){
+      if(nums[i]+i>= pos){
+        pos = i
+        step++
+        console.log(pos)
+      }
+    }
+  }
+  return step
+}
+console.log(jumps([2,3,1,1,6]))
