@@ -28,6 +28,21 @@ var canCompleteCircuit = function(gas, cost) {
   return sum>=0?res:-1
   
 };
+// 倒序遍历
+var canCompleteCircuit2 = function(gas, cost) {
+  let mx = -1 // 记录出现过的最大剩余油量
+  let total = 0 // 记录当前剩余油量
+  let start = 0
+  for(let i = gas.length; i < gas.length; i--){
+     total += gas[i] - cost[i]
+     if(total>mx){
+        start = i
+        mx = total
+     }
+  }
+  return total>=0?start:-1
+  
+};
 
-console.log(canCompleteCircuit([3,1,1],
+console.log(canCompleteCircuit2([3,1,1],
   [1,2,2]))
