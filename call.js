@@ -15,17 +15,15 @@ function call1(obj) {
     delete ctx.fn
 }
 Function.prototype.call1 = call1
-let obj = {a: 1}
-function a(b) {
-    console.log(this)
-    console.log(this.a + b)
-}
+
 //a.call1(obj, 11)
 
 function call2(ctx, ...rest){
     ctx || (ctx = window)
     let fn = Symbol('fn')
     ctx[fn] = this
+    console.log(this,'this')
+
     let res = ctx[fn](...rest);
     delete ctx[fn]
     return res
@@ -42,3 +40,9 @@ function apply1(ctx, rest){
     
 }
 Function.prototype.call2 = call2
+
+let obj = {a: 1}
+function a(b) {
+    console.log(this.a + b)
+}
+a.call2(obj, 11)
