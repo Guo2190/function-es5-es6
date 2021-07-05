@@ -8,6 +8,9 @@
  */
 
 // 定义Promise的三种状态常量
+
+
+
 const PENDING = 'PENDING'
 const FULFILLED = 'FULFILLED'
 const REJECTED = 'REJECTED'
@@ -29,7 +32,6 @@ class MyPromise {
         }
     }
     _resolve(val) {
-        console.log(this)
         if (this._status !== PENDING) return
         const run = () => {
             let cb
@@ -148,3 +150,18 @@ class MyPromise {
 // }).then(res => {
 //     console.log(res)
 // })
+console.log(1)
+async function c(){
+    console.log(3)
+    return 3
+}
+let b = new MyPromise(async (r)=>{
+
+    r(4)
+    await c()
+    console.log(2)
+
+}).then((val)=>{
+    console.log(val)
+})
+
