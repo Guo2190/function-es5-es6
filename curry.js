@@ -1,26 +1,21 @@
 let slice = [].slice
 function sub_curry(fn){
-    
     let args = slice.call(arguments,1)
     return function(){
-        let arg = args.concat(slice.call(arguments))
-        return fn.apply(this, arg)
+        let arr = args.concat(slice.call(arguments))
+        return fn.apply(this, arr)
     }
 }
 function sCurry(fn, length){
-    length = length || fn.length;
-
-    var slice = Array.prototype.slice;
-
-    return function() {
-        if (arguments.length < length) {
-
-            var combined = [fn].concat(slice.call(arguments));
-            return sCurry(sub_curry.apply(this, combined), length - arguments.length);
-        } else {
-            return fn.apply(this, arguments);
+    length = length || fn.length
+    return function(){
+        let args = [fn].concat(slice.call(arguments))
+        if(arguments.length<length){
+            return sCurry(sub_curry.apply(this, args), length-arguments.length)
+        }else {
+            return fn.apply(this,arguments)
         }
-    };
+    }
 }
 
 const curry1 = fn => judge = (...args) => fn.length === args.length ? fn(...args) : arg => judge(...args, arg)
