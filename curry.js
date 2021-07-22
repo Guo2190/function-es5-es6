@@ -27,3 +27,4 @@ function add(a, b,c,d) {
 let f = sCurry(add)
 //console.log(f())
 console.log('f-->',f(1,3)(121)(1))
+const curry1 = fn => judge = (...args) => fn.length === args.length? fn(...args) : (arg) => judge(...args,arg)
